@@ -6,21 +6,25 @@
       <button @click="incluir">Inserir</button>
     </p>
     <ul>
-      <li
+      <CursoItem
         v-for="(curso, indice) in cursos"
         @click="excluir(indice)"
         :key="indice"
-      >
-        {{ curso.nome }}
-      </li>
+        :curso="curso.nome"
+      />
     </ul>
   </div>
 </template>
 
 
 <script>
+import CursoItem from "./components/CursoItem";
+
 export default {
   name: "app",
+  components: {
+    CursoItem,
+  },
   data() {
     return {
       novo: "",
