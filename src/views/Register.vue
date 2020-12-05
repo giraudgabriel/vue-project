@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <form @submit.prevent="login">
-      <h2>Login</h2>
+    <form @submit.prevent="register">
+      <h2>Cadastrar-se</h2>
       <div class="input-group">
         <input
           placeholder="Usuário"
@@ -12,10 +12,13 @@
         />
       </div>
       <div class="input-group">
+        <input placeholder="Nome" id="name" required v-model="nome" />
+      </div>
+      <div class="input-group">
         <input placeholder="Senha" id="password" required v-model="senha" />
       </div>
-      <button type="submit">Entrar</button>
-      <button @click="register">Não possui conta? Cadastrar-se</button>
+      <button type="submit">Criar conta</button>
+      <button @click="login">Já possui contar? Entrar</button>
     </form>
   </div>
 </template>
@@ -25,18 +28,19 @@ import axios from "axios";
 import { mapMutations } from "vuex";
 
 export default {
-  name: "Login",
+  name: "Register",
   data() {
     return {
       usuario: "",
+      nome: "",
       senha: "",
     };
   },
   methods: {
     ...mapMutations(["setUsuario", "setSenha"]),
-    login() {
+    register() {
       axios
-        .get("dev", {
+        .post("dev", {
           params: { id: 1 },
           headers: { Accept: "application/json" },
           auth: { username: this.usuario, password: this.usuario },
@@ -59,12 +63,13 @@ export default {
       this.setSenha(this.senha);
       this.$router.push("/dev");
     },
-    register() {
-      this.$router.push("/register");
+    login() {
+      this.$router.push("/");
     },
   },
 };
 </script>
 
 <style>
+
 </style>
