@@ -1,23 +1,25 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
-    state: {
-        usuario: '',
-        senha: '',
+  state: {
+    usuario: "",
+    senha: "",
+    isAdmin: false,
+  },
+  mutations: {
+    setUsuario(state, valor) {
+      state.usuario = valor;
     },
-    mutations: {
-        setUsuario(state, valor) {
-            state.usuario = valor;
-        },
-        setSenha(state, valor) {
-            state.senha = valor;
-        }
+    setSenha(state, valor) {
+      state.senha = valor;
     },
-    actions: {
+    setIsAdmin(state, valor) {
+      state.isAdmin = valor;
     },
-    modules: {
-    }
-})
+  },
+  actions: {},
+  modules: {},
+});

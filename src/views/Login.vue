@@ -36,27 +36,25 @@ export default {
     ...mapMutations(["setUsuario", "setSenha"]),
     login() {
       axios
-        .get("dev", {
-          params: { id: 1 },
+        .post("dev/login", {
+          params: { username: this.usuario, password: this.usuario },
           headers: { Accept: "application/json" },
-          auth: { username: this.usuario, password: this.usuario },
         })
         .then((res) => {
-          console.log(res);
-          this.success();
+          const { data } = res;
+          this.success(data);
         })
         .catch((err) => {
           console.error(err);
           if (err.response.status === 401) {
             alert("Usuário ou senha inválidos!");
-          } else {
-            this.success();
           }
         });
     },
-    success() {
-      this.setUsuario(this.usuario);
-      this.setSenha(this.senha);
+    success(data) {
+      this.setUsuario(data.usuario);
+      this.setSenha(data.senha);
+      this.setIsAdmin(data.isAdmin);
       this.$router.push("/dev");
     },
     register() {
