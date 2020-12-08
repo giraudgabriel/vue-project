@@ -1,14 +1,36 @@
 <template>
   <div id="app">
+    <div v-if="$store.state.usuario">
+      <button @click="logout">Sair</button>
+      <h1>Bem-vindo {{ $store.state.usuario }} !</h1>
+    </div>
     <router-view />
   </div>
 </template>
 
 
 <script>
+import { mapState,mapMutations } from "vuex";
+
 export default {
   name: "app",
-};
+  data() {
+    return {
+      ...mapState(["usuario"]),
+      users: [],
+    };
+  },
+  methods:{
+    ...mapMutations(["setUsuario", "setSenha", "setIsAdmin"]),
+    logout(){
+      this.setUsuario(null)
+      this.setSenha(null)
+      this.setIsAdmin(false)
+      this.$router.push("/");
+    }
+  }
+}
+
 </script>
 
 <style>
@@ -18,7 +40,8 @@ h2 {
 }
 
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+  background: #f2f2f2;
 }
 
 #app {

@@ -49,9 +49,7 @@ export default {
         })
         .catch((err) => {
           console.error(err);
-          if (err.response.status === 401) {
-            alert("Usuário ou senha inválidos!");
-          }
+          alert("Usuário ou senha inválidos!");
         });
     },
     success(data) {
@@ -68,4 +66,7 @@ export default {
 </script>
 
 <style>
+button{
+  margin: 8px !important;
+}
 </style>

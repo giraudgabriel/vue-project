@@ -52,16 +52,11 @@ export default {
           senha: this.senha,
         })
         .then((res) => {
-          console.log(res);
-          this.success();
+          if(res.status == 201) this.success();
         })
         .catch((err) => {
           console.error(err);
-          if (err.response.status === 401) {
-            alert("Usuário ou senha inválidos!");
-          } else {
-            this.success();
-          }
+          alert("Usuário ou senha inválidos!");
         });
     },
     success() {
