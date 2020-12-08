@@ -12,7 +12,13 @@
         />
       </div>
       <div class="input-group">
-        <input placeholder="Senha" id="password" required v-model="senha" />
+        <input
+          type="password"
+          placeholder="Senha"
+          id="password"
+          required
+          v-model="senha"
+        />
       </div>
       <button type="submit">Entrar</button>
       <button @click="register">Não possui conta? Cadastrar-se</button>
@@ -21,7 +27,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import api from "../api";
 import { mapMutations } from "vuex";
 
 export default {
@@ -33,13 +39,10 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(["setUsuario", "setSenha"]),
+    ...mapMutations(["setUsuario", "setSenha", "setIsAdmin"]),
     login() {
-      axios
-        .post("dev/login", {
-          params: { username: this.usuario, password: this.usuario },
-          headers: { Accept: "application/json" },
-        })
+      api
+        .post("admin", { nomeUsuario: this.usuario, senha: this.senha })
         .then((res) => {
           const { data } = res;
           this.success(data);
@@ -52,7 +55,7 @@ export default {
         });
     },
     success(data) {
-      this.setUsuario(data.usuario);
+      this.setUsuario(data.nomeUsuario);
       this.setSenha(data.senha);
       this.setIsAdmin(data.isAdmin);
       this.$router.push("/dev");

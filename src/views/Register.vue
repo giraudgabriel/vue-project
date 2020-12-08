@@ -15,7 +15,13 @@
         <input placeholder="Nome" id="name" required v-model="nome" />
       </div>
       <div class="input-group">
-        <input placeholder="Senha" id="password" required v-model="senha" />
+        <input
+          type="password"
+          placeholder="Senha"
+          id="password"
+          required
+          v-model="senha"
+        />
       </div>
       <button type="submit">Criar conta</button>
       <button @click="login">Já possui contar? Entrar</button>
@@ -24,7 +30,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import api from "../api";
 import { mapMutations } from "vuex";
 
 export default {
@@ -39,11 +45,11 @@ export default {
   methods: {
     ...mapMutations(["setUsuario", "setSenha"]),
     register() {
-      axios
+      api
         .post("dev", {
-          params: { id: 1 },
-          headers: { Accept: "application/json" },
-          auth: { username: this.usuario, password: this.usuario },
+          nomeUsuario: this.usuario,
+          nome: this.nome,
+          senha: this.senha,
         })
         .then((res) => {
           console.log(res);
